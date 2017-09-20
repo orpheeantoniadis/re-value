@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>MapView and SceneView - 4.3</title>
+
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+    
+    .viewDivBase {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 49.9%;
+    }
+    
+    #viewDiv2d {
+      float: left;
+    }
+    
+    #viewDiv3d {
+      float: right;
+    }
+    
+    .title {
+      bottom: 10px;
+      width: 20%;
+      text-align: center;
+      margin: 0 0 0 14%;
+      position: absolute;
+      z-index: 99;
+      background-color: white;
+      padding: 5px 5px 5px 5px;
+      opacity: 0.75;
+      border-radius: 6px;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.3/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.3/"></script>
+
+  <script>
+    require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/views/MapView",
+        "dojo/domReady!"
+      ],
+      function(
+        Map,
+        SceneView,
+        MapView
+      ) {
+
+        map = new Map({
+          basemap: "satellite"
+        });
+
+        view3d = new SceneView({
+          container: "viewDiv3d",
+          map: map,
+          zoom: 3,
+          center: [0, 45]
+        });
+
+        view2d = new MapView({
+          container: "viewDiv2d",
+          map: map,
+          zoom: 3,
+          center: [0, 45]
+        });
+
+        view2d.then(function() {
+          view2d.ui.empty();
+        });
+
+        view3d.then(function() {
+          view3d.ui.empty();
+        });
+
+      });
+  </script>
+</head>
+
+<body>
+  <div class="viewDivBase" id="viewDiv2d">
+    <div class="title">MapView (2D)</div>
+  </div>
+  <div class="viewDivBase" id="viewDiv3d">
+    <div class="title">SceneView (3D)</div>
+  </div>
+</body>
+
+</html>
